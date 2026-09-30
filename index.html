@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search a curated dataset of 405 polyoxometalate synthesis procedures.">
+  <title>Polyoxometalate Synthesis Explorer · Berzelius 1.0</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/search.js"></script>
+  <script defer src="assets/details.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#searchForm">Skip to search</a>
+
+  <header class="institutional-header">
+    <div class="page-shell institutional-header-inner">
+      <nav class="section-nav" aria-label="Page information">
+        <a href="#about">About</a>
+        <a href="#people">People</a>
+      </nav>
+      <div class="institutional-logos" aria-label="Partner institutions">
+        <img src="assets/logo-univie.svg" alt="Universität Wien" class="uni-vienna-logo">
+        <span class="logo-divider" aria-hidden="true"></span>
+        <img src="assets/logo-tugraz.svg" alt="TU Graz" class="tu-graz-logo">
+      </div>
+    </div>
+  </header>
+
+  <section class="app-intro" aria-labelledby="pageTitle">
+    <div class="page-shell hero">
+      <div class="hero-main">
+        <p class="eyebrow">Berzelius 1.0</p>
+        <h1 id="pageTitle">Polyoxometalate Synthesis Explorer</h1>
+      </div>
+    </div>
+  </section>
+
+  <main class="page-shell">
+    <section class="search-panel" aria-labelledby="searchHeading">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Dataset search</p>
+          <h2 id="searchHeading">Find a synthesis procedure</h2>
+        </div>
+        <p>Combine any filters. Leave all fields empty to browse the complete collection.</p>
+      </div>
+
+      <form id="searchForm" autocomplete="off">
+        <fieldset class="filter-grid">
+          <legend class="sr-only">Search filters</legend>
+          <div class="field">
+            <div class="field-label-row">
+              <label for="searchId">Procedure ID</label>
+              <button class="help-button" type="button" aria-label="About Procedure ID" aria-describedby="helpSearchId">?</button>
+              <span class="help-tooltip" id="helpSearchId" role="tooltip">Enter an exact ID. A base ID such as SYN71 also finds SYN71-1 and SYN71-2.</span>
+            </div>
+            <input type="text" id="searchId" name="pomId" placeholder="SYN1 or SYN1, SYN42">
+          </div>
+          <div class="field">
+            <div class="field-label-row">
+              <label for="searchTarget">Target compound</label>
+              <button class="help-button" type="button" aria-label="About Target compound" aria-describedby="helpSearchTarget">?</button>
+              <span class="help-tooltip" id="helpSearchTarget" role="tooltip">Search the compound formula as reported in the source text.</span>
+            </div>
+            <input type="text" id="searchTarget" name="target" placeholder="PW12O40">
+          </div>
+          <div class="field">
+            <div class="field-label-row">
+              <label for="searchElements">Elements present</label>
+              <button class="help-button" type="button" aria-label="About Elements present" aria-describedby="helpSearchElements">?</button>
+              <span class="help-tooltip" id="helpSearchElements" role="tooltip">Enter element symbols separated by commas or spaces.</span>
+            </div>
+            <input type="text" id="searchElements" name="elements" placeholder="W, P or Mo, V">
+          </div>
+          <div class="field">
+            <div class="field-label-row">
+              <label for="searchDoi">Source DOI</label>
+              <button class="help-button" type="button" aria-label="About Source DOI" aria-describedby="helpSearchDoi">?</button>
+              <span class="help-tooltip" id="helpSearchDoi" role="tooltip">Search by DOI. Available DOI values are linked to their source publications.</span>
+            </div>
+            <input type="text" id="searchDoi" name="doi" placeholder="10.1021/…">
+          </div>
+          <div class="field wide-field">
+            <div class="field-label-row">
+              <label for="searchReagent">Reagent</label>
+              <button class="help-button" type="button" aria-label="About Reagent" aria-describedby="helpSearchReagent">?</button>
+              <span class="help-tooltip" id="helpSearchReagent" role="tooltip">Find reagent names containing the entered text.</span>
+            </div>
+            <input type="text" id="searchReagent" name="reagent" placeholder="Sodium tungstate">
+          </div>
+          <div class="field wide-field">
+            <div class="field-label-row">
+              <label for="searchOperation">Unit operation</label>
+              <button class="help-button" type="button" aria-label="About Unit operation" aria-describedby="helpSearchOperation">?</button>
+              <span class="help-tooltip" id="helpSearchOperation" role="tooltip">Choose an operation used in the procedure, such as heating, filtering, or washing.</span>
+            </div>
+            <select id="searchOperation" name="operation"></select>
+          </div>
+          <div class="field range-field">
+            <div class="field-label-row">
+              <label for="searchStepsMin">Minimum steps</label>
+              <button class="help-button" type="button" aria-label="About Minimum steps" aria-describedby="helpSearchStepsMin">?</button>
+              <span class="help-tooltip" id="helpSearchStepsMin" role="tooltip">Show procedures with at least this many steps.</span>
+            </div>
+            <input type="number" id="searchStepsMin" name="stepsMin" min="0" step="1" placeholder="1">
+          </div>
+          <div class="field range-field">
+            <div class="field-label-row">
+              <label for="searchStepsMax">Maximum steps</label>
+              <button class="help-button" type="button" aria-label="About Maximum steps" aria-describedby="helpSearchStepsMax">?</button>
+              <span class="help-tooltip" id="helpSearchStepsMax" role="tooltip">Show procedures with no more than this many steps.</span>
+            </div>
+            <input type="number" id="searchStepsMax" name="stepsMax" min="0" step="1" placeholder="20">
+          </div>
+          <div class="field addenda-field">
+            <div class="field-label-row">
+              <label for="searchLabel">Starting addenda source</label>
+              <button class="help-button" type="button" aria-label="About Starting addenda source" aria-describedby="helpSearchLabel">?</button>
+              <span class="help-tooltip" id="helpSearchLabel" role="tooltip">The primary addenda-metal salt from which the synthesis starts.</span>
+            </div>
+            <select id="searchLabel" name="label"></select>
+            <div id="chosenLabels" class="pill-box" aria-live="polite"></div>
+          </div>
+        </fieldset>
+
+        <p id="formError" class="form-error" role="alert" hidden></p>
+        <div class="form-actions">
+          <button type="submit" class="button button-primary">Search records</button>
+          <button type="reset" id="resetButton" class="button button-secondary">Clear filters</button>
+        </div>
+      </form>
+
+      <details class="data-note">
+        <summary>About the dataset</summary>
+        <p>Source DOI and POM-core element metadata are linked from the original curated Explorer index where available; elements are derived from the target core for the remaining records. Molecular mass and charge are not available consistently in this corpus.</p>
+      </details>
+    </section>
+
+    <section class="results-panel" aria-labelledby="resultsHeading">
+      <div class="results-heading">
+        <p class="eyebrow" id="resultsHeading">Search results</p>
+        <p id="resultStatus" class="result-status" role="status" aria-live="polite">Loading records…</p>
+      </div>
+
+      <div id="loadError" class="load-error" role="alert" hidden></div>
+      <div class="table-scroll" tabindex="0" aria-label="Scrollable search results">
+        <table id="resultsTable" data-link-key="id">
+          <thead>
+            <tr>
+              <th scope="col">Procedure</th>
+              <th scope="col">Target compound</th>
+              <th scope="col">Elements</th>
+              <th scope="col">Starting addenda</th>
+              <th scope="col">Reagents</th>
+              <th scope="col">Steps</th>
+              <th scope="col">Unit operations</th>
+              <th scope="col">Source DOI</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="load-more-row">
+        <button id="loadMoreButton" class="button button-secondary" type="button" hidden>Show more records</button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="page-shell footer-grid">
+      <p><strong>Polyoxometalate Synthesis Explorer</strong><br>Berzelius 1.0</p>
+      <p class="footer-meta"><a href="#about">About</a> · <a href="#people">People</a> · © 2026</p>
+    </div>
+  </footer>
+
+  <dialog id="aboutDialog" aria-labelledby="aboutDialogTitle">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">About</p>
+        <h2 id="aboutDialogTitle">About the explorer</h2>
+      </div>
+      <button type="button" class="icon-button" data-close-dialog="aboutDialog" aria-label="Close">×</button>
+    </div>
+    <div class="dialog-body">
+      <p>Berzelius 1.0 provides searchable access to curated polyoxometalate synthesis records. It brings target compounds, reagents, operations, source references, and structured procedures together in one place.</p>
+      <p>The explorer supports research and reproducible reporting by making synthesis information easier to find, compare, and read.</p>
+      <button id="videoToggle" class="video-toggle" type="button" aria-expanded="false" aria-controls="videoContainer">
+        <span class="play-icon" aria-hidden="true">▶</span>
+        Watch the short overview
+      </button>
+      <div id="videoContainer" class="video-container" hidden>
+        <video id="customVideo" controls preload="metadata" playsinline aria-label="Overview of the Polyoxometalate Synthesis Explorer">
+          <source src="assets/video/intro.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="peopleDialog" aria-labelledby="peopleDialogTitle">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">People</p>
+        <h2 id="peopleDialogTitle">People behind the project</h2>
+      </div>
+      <button type="button" class="icon-button" data-close-dialog="peopleDialog" aria-label="Close">×</button>
+    </div>
+    <div class="dialog-body">
+      <p>This project was developed by:</p>
+      <ul class="people-list">
+        <li>Jan Leodolter</li>
+        <li>Ella Duvanova</li>
+        <li>Prof. Annette Rompel</li>
+        <li>Dr. Nadiia I. Gumerova</li>
+        <li>Ass.-Prof. Dr. Aleksandar Kondinski</li>
+      </ul>
+      <p><strong>Graz University of Technology:</strong> Jan Leodolter and Aleksandar Kondinski, Institute of Physical and Theoretical Chemistry, Stremayrgasse 9, 8010 Graz, Austria.</p>
+      <p><strong>Universität Wien:</strong> Ella Duvanova, Nadiia I. Gumerova, and Annette Rompel, Institut für Biophysikalische Chemie, Fakultät für Chemie, Josef-Holaubek-Platz 2, 1090 Wien, Austria.</p>
+      <p><strong>Vienna Doctoral School in Chemistry (DoSChem):</strong> Ella Duvanova, Universität Wien, Währingerstraße 42, 1090 Wien, Austria.</p>
+    </div>
+  </dialog>
+
+  <dialog id="detailsPopup" aria-labelledby="detailsTitle">
+    <div class="dialog-header">
+      <div>
+        <p class="eyebrow">Synthesis record</p>
+        <h2 id="detailsTitle">Procedure details</h2>
+      </div>
+      <button id="closePopup" class="icon-button" type="button" aria-label="Close procedure details">×</button>
+    </div>
+    <div class="dialog-scroll">
+      <div id="detailsContent" class="details-content"></div>
+      <section class="generation-panel" aria-labelledby="generationHeading">
+        <h3 id="generationHeading">Generate a readable procedure</h3>
+        <p>Generation sends this structured record and the selected language to the configured OpenAI model.</p>
+        <div class="generation-controls">
+          <div class="field">
+            <label for="languageInput">Output language</label>
+            <input id="languageInput" type="text" value="English" autocomplete="off">
+          </div>
+          <button id="generateProcedure" class="button button-primary" type="button">Generate procedure</button>
+        </div>
+        <div id="generatedOutput" class="generated-output" aria-live="polite" hidden></div>
+      </section>
+    </div>
+  </dialog>
+
+  <script>
+    // Wire up the About/People links (in the header nav and footer) to open
+    // their dialogs as proper modals instead of scrolling to an in-page anchor.
+    (function () {
+      var dialogIds = { about: 'aboutDialog', people: 'peopleDialog' };
+
+      document.querySelectorAll('a[href="#about"], a[href="#people"]').forEach(function (link) {
+        var key = link.getAttribute('href').slice(1);
+        var dialog = document.getElementById(dialogIds[key]);
+        if (!dialog) return;
+        link.addEventListener('click', function (event) {
+          event.preventDefault();
+          dialog.showModal();
+        });
+      });
+
+      document.querySelectorAll('[data-close-dialog]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var dialog = document.getElementById(button.dataset.closeDialog);
+          if (dialog) dialog.close();
+        });
+      });
+
+      // Click on the backdrop (outside the dialog's own content box) closes it.
+      [document.getElementById('aboutDialog'), document.getElementById('peopleDialog')].forEach(function (dialog) {
+        if (!dialog) return;
+        dialog.addEventListener('click', function (event) {
+          var bounds = dialog.getBoundingClientRect();
+          var outside = (
+            event.clientX < bounds.left || event.clientX > bounds.right ||
+            event.clientY < bounds.top || event.clientY > bounds.bottom
+          );
+          if (outside) dialog.close();
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
